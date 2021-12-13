@@ -1,6 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
+import { MainView } from './components/main-view/main-view';
+
 // Import statement to indicate that you need to bundle `./index.scss`
 import './index.scss';
 
@@ -8,9 +10,7 @@ import './index.scss';
 class GreenDragonFlixApplication extends React.Component{
     render() {
         return (
-            <div className="green-dragon-flix">
-                <div>Welcome to Green Dragon Flix, a place to store all your favorite movies.</div>
-            </div>
+            <MainView />
         )
     }
 }
