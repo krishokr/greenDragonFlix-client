@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import PropTypes from 'prop-types';
 
 export function LoginView(props) {
     const [ username, setUsername ] = useState('');
@@ -12,18 +13,31 @@ export function LoginView(props) {
         props.onLoggedIn(username);
     }
 
-    return(
-        <form>
-            <label>
-                Username: 
-                <input type="text" value={username} onChange={e => setUsername(e.target.value)} ></input>
-            </label>
+    const onRegister = () => {
+        console.log('registering user');
+        props.onRegister();
+    }
 
-            <label>
-                Password:
-                <input type="text" value={password} onChange={e => setPassword(e.target.value)} ></input>
-            </label>
-            <button type="submit" onClick={handleSubmit}>Submit</button>
-        </form>
+    return(
+        <>
+            <form>
+                <label>
+                    Username: 
+                    <input type="text" value={username} onChange={e => setUsername(e.target.value)} ></input>
+                </label>
+
+                <label>
+                    Password:
+                    <input type="text" value={password} onChange={e => setPassword(e.target.value)} ></input>
+                </label>
+                <button type="submit" onClick={handleSubmit}>Submit</button>
+            </form>
+            <button type="button" onClick={onRegister}>Register</button>
+        </>
     )
 }
+
+LoginView.propTypes = {
+    onLoggedIn: PropTypes.func.isRequired,
+    onRegister: PropTypes.func.isRequired
+};
