@@ -1,7 +1,9 @@
 import React from 'react';
+import axios from 'axios';
 
-import { MovieCard } from './movie-card';
-import { MovieView } from './movie-view';
+import { LoginView } from '../login-view/login-view';
+import { MovieCard } from '../movie-card/movie-card';
+import { MovieView } from '../movie-view/movie-view';
 
 
 export class MainView extends React.Component {
@@ -10,11 +12,9 @@ export class MainView extends React.Component {
         super();
 
         this.state = {
-            movies: [
-            {Title: "pirates", _id: 1, ImagePath: "", Year: 2014, Genre: "Fantasy", Director: "steven",Description: "...descr1"}, 
-            {Title: "indiana", _id: 2, ImagePath: "", Year: 200, Genre: "Adventure", Director: "joe", Description: "...descr2"}
-            ],
-            selectedMovie: null
+            movies: [],
+            selectedMovie: null,
+            user: null
         }
         
 
@@ -31,13 +31,19 @@ export class MainView extends React.Component {
         if (this.state.selectedMovie) return this.setState({selectedMovie: null})
     }
 
+    onLoggedIn(user) {
+        this.setState({user});
+    }
+
     
 
     render() {
         //object destructuring
-        const {movies, selectedMovie} = this.state;
+        const {movies, selectedMovie, user} = this.state;
 
-        if (movies.length === 0) return <div className="main-view">The list is empty!</div>;
+        if (!user) return <div className="main-view"><LoginView onLoggedIn={user => this.onLoggedIn(user)}/></div>
+
+        if (movies.length === 0) return <div className="main-view"></div>;
 
         return (
             <div className="main-view">
@@ -49,5 +55,17 @@ export class MainView extends React.Component {
         );
         
     }
+
+    componentDidMount() {
+        
+        axios.get('https://greendragonflix.herokuapp.com/movies')
+            .then(response => {
+                this.setState({movies: response.data});
+                console.log(response.data)
+            }).catch(error => console.log(error));
+
+    }
+
+    
 }
 

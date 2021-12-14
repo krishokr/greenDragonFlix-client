@@ -3,6 +3,10 @@ import React from "react";
 //MovieView is the UI of the details once a title is clicked
 export class MovieView extends React.Component {
 
+    keypressCallback(event) {
+        console.log(event.key)
+    }
+
     render() {
 
         const {movie, onBackClick} = this.props;
@@ -18,7 +22,7 @@ export class MovieView extends React.Component {
                 </div>
                 <div className="movie-director">
                     <span className="label">Director: </span>
-                    <span className="value">{ movie.Director }</span>
+                    <span className="value">{ movie.Director.Name }</span>
                 </div>
                 <div className="movie-year">
                     <span className="label">Year Released: </span>
@@ -26,7 +30,7 @@ export class MovieView extends React.Component {
                 </div>
                 <div className="movie-genre">
                     <span className="label">Genre: </span>
-                    <span className="value">{ movie.Genre }</span>
+                    <span className="value">{ movie.Genre.Name }</span>
                 </div>
 
                 <div className="movie-description">
@@ -39,6 +43,14 @@ export class MovieView extends React.Component {
             </div>
            
         )
+    }
+
+    componentDidMount() {
+        document.addEventListener('keypress', this.keypressCallback)
+    }
+
+    componentWillUnmount() {
+        document.removeEventListener('keypress', this.keypressCallback)
     }
 
 }
