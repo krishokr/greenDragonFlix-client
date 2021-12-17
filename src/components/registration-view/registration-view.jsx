@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import PropTypes from 'prop-types';
 import './registration-view.scss'
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
 
 export function RegistrationView(props) {
 
@@ -22,7 +24,7 @@ export function RegistrationView(props) {
 
     return(
         <>
-            <form>
+            <Form>
                 <label>
                     Username: 
                     <input type="text" value={username} onChange={e => setUsername(e.target.value)} ></input>
@@ -42,9 +44,9 @@ export function RegistrationView(props) {
                     Name:
                     <input type="text" value={name} onChange={e => setName(e.target.value)} ></input>
                 </label>
-                <button type="submit" onClick={handleSubmit}>Submit</button>
-            </form>
-            <label>Already registered? <button onClick={viewLogin}>Login Here</button></label>
+                <Button type="submit" onClick={handleSubmit}>Submit</Button>
+            </Form>
+            <label>Already registered? <Button onClick={viewLogin}>Login Here</Button></label>
         </>
         
     )

@@ -1,11 +1,14 @@
 import React from 'react';
 import axios from 'axios';
+import './main-view.scss';
 
 import { LoginView } from '../login-view/login-view';
 import { MovieCard } from '../movie-card/movie-card';
 import { MovieView } from '../movie-view/movie-view';
 import { RegistrationView } from '../registration-view/registration-view';
-import './main-view.scss';
+import Row  from 'react-bootstrap/Row'
+import Col from 'react-bootstrap/Col';
+
 
 
 export class MainView extends React.Component {
@@ -77,16 +80,24 @@ export class MainView extends React.Component {
             )
         }
 
-        if (movies.length === 0) return <div className="main-view"></div>;
+        if (movies.length === 0) return <div className="main-view"></div>
 
         return (
-            <div className="main-view">
-                {
-                    selectedMovie ? <MovieView movie={selectedMovie} onBackClick={() => this.onBackClick()} /> : movies.map(movie => <MovieCard key={movie._id} movie={movie} onMovieClick={movie => { this.setSelectedMovie(movie) }} />)
-                }
-                
-            </div>
-        );
+            <Row className="main-view justify-content-md-center">
+              {selectedMovie
+                ? (
+                  <Col md={8}>
+                    <MovieView movie={selectedMovie} onBackClick={newSelectedMovie => { this.setSelectedMovie(newSelectedMovie); }} />
+                  </Col>
+                )
+                : movies.map(movie => (
+                  <Col md={3} key={movie._id}>
+                    <MovieCard key={movie._id} movie={movie} onMovieClick={newSelectedMovie => { this.setSelectedMovie(newSelectedMovie); }}/>
+                  </Col>
+                ))
+              }
+            </Row>
+          );
         
     }
 
