@@ -25,28 +25,28 @@ export function RegistrationView(props) {
     return(
         <>
             <Form>
-                <label>
-                    Username: 
-                    <input type="text" value={username} onChange={e => setUsername(e.target.value)} ></input>
-                </label>
+                <Form.Group controlId="formUsername">
+                    <Form.Label>Username: </Form.Label>
+                    <Form.Control type="text" onChange={e => setUsername(e.target.value)} ></Form.Control>
+                </Form.Group>
 
-                <label>
-                    Password:
-                    <input type="text" value={password} onChange={e => setPassword(e.target.value)} ></input>
-                </label>
+                <Form.Group controlId="formPassword">
+                    <Form.Label>Password: </Form.Label>
+                    <Form.Control type="password" onChange={e => setPassword(e.target.value)} ></Form.Control>
+                </Form.Group>
 
-                <label>
-                    Email:
-                    <input type="text" value={email} onChange={e => setEmail(e.target.value)} ></input>
-                </label>
+                <Form.Group>
+                    <Form.Label>Email: </Form.Label>
+                    <Form.Control type="text" value={email} onChange={e => setEmail(e.target.value)} ></Form.Control>
+                </Form.Group>
 
-                <label>
-                    Name:
-                    <input type="text" value={name} onChange={e => setName(e.target.value)} ></input>
-                </label>
-                <Button type="submit" onClick={handleSubmit}>Submit</Button>
+                <Form.Group>
+                    <Form.Label>Name: </Form.Label>
+                    <Form.Control type="text" value={name} onChange={e => setName(e.target.value)} ></Form.Control>
+                </Form.Group>
+                <Button variant="primary" type="submit" onClick={handleSubmit}>Submit</Button>
             </Form>
-            <label>Already registered? <Button onClick={viewLogin}>Login Here</Button></label>
+            <div>Already registered? <Button onClick={viewLogin}>Login Here</Button></div>
         </>
         
     )

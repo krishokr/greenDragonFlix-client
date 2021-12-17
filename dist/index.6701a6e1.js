@@ -26801,17 +26801,24 @@ function RegistrationView(props) {
                 },
                 __self: this,
                 children: [
-                    /*#__PURE__*/ _jsxRuntime.jsxs("label", {
+                    /*#__PURE__*/ _jsxRuntime.jsxs(_formDefault.default.Group, {
+                        controlId: "formUsername",
                         __source: {
                             fileName: "src/components/registration-view/registration-view.jsx",
                             lineNumber: 28
                         },
                         __self: this,
                         children: [
-                            "Username:",
-                            /*#__PURE__*/ _jsxRuntime.jsx("input", {
+                            /*#__PURE__*/ _jsxRuntime.jsx(_formDefault.default.Label, {
+                                __source: {
+                                    fileName: "src/components/registration-view/registration-view.jsx",
+                                    lineNumber: 29
+                                },
+                                __self: this,
+                                children: "Username: "
+                            }),
+                            /*#__PURE__*/ _jsxRuntime.jsx(_formDefault.default.Control, {
                                 type: "text",
-                                value: username,
                                 onChange: (e)=>setUsername(e.target.value)
                                 ,
                                 __source: {
@@ -26822,17 +26829,24 @@ function RegistrationView(props) {
                             })
                         ]
                     }),
-                    /*#__PURE__*/ _jsxRuntime.jsxs("label", {
+                    /*#__PURE__*/ _jsxRuntime.jsxs(_formDefault.default.Group, {
+                        controlId: "formPassword",
                         __source: {
                             fileName: "src/components/registration-view/registration-view.jsx",
                             lineNumber: 33
                         },
                         __self: this,
                         children: [
-                            "Password:",
-                            /*#__PURE__*/ _jsxRuntime.jsx("input", {
-                                type: "text",
-                                value: password,
+                            /*#__PURE__*/ _jsxRuntime.jsx(_formDefault.default.Label, {
+                                __source: {
+                                    fileName: "src/components/registration-view/registration-view.jsx",
+                                    lineNumber: 34
+                                },
+                                __self: this,
+                                children: "Password: "
+                            }),
+                            /*#__PURE__*/ _jsxRuntime.jsx(_formDefault.default.Control, {
+                                type: "password",
                                 onChange: (e)=>setPassword(e.target.value)
                                 ,
                                 __source: {
@@ -26843,15 +26857,22 @@ function RegistrationView(props) {
                             })
                         ]
                     }),
-                    /*#__PURE__*/ _jsxRuntime.jsxs("label", {
+                    /*#__PURE__*/ _jsxRuntime.jsxs(_formDefault.default.Group, {
                         __source: {
                             fileName: "src/components/registration-view/registration-view.jsx",
                             lineNumber: 38
                         },
                         __self: this,
                         children: [
-                            "Email:",
-                            /*#__PURE__*/ _jsxRuntime.jsx("input", {
+                            /*#__PURE__*/ _jsxRuntime.jsx(_formDefault.default.Label, {
+                                __source: {
+                                    fileName: "src/components/registration-view/registration-view.jsx",
+                                    lineNumber: 39
+                                },
+                                __self: this,
+                                children: "Email: "
+                            }),
+                            /*#__PURE__*/ _jsxRuntime.jsx(_formDefault.default.Control, {
                                 type: "text",
                                 value: email,
                                 onChange: (e)=>setEmail(e.target.value)
@@ -26864,15 +26885,22 @@ function RegistrationView(props) {
                             })
                         ]
                     }),
-                    /*#__PURE__*/ _jsxRuntime.jsxs("label", {
+                    /*#__PURE__*/ _jsxRuntime.jsxs(_formDefault.default.Group, {
                         __source: {
                             fileName: "src/components/registration-view/registration-view.jsx",
                             lineNumber: 43
                         },
                         __self: this,
                         children: [
-                            "Name:",
-                            /*#__PURE__*/ _jsxRuntime.jsx("input", {
+                            /*#__PURE__*/ _jsxRuntime.jsx(_formDefault.default.Label, {
+                                __source: {
+                                    fileName: "src/components/registration-view/registration-view.jsx",
+                                    lineNumber: 44
+                                },
+                                __self: this,
+                                children: "Name: "
+                            }),
+                            /*#__PURE__*/ _jsxRuntime.jsx(_formDefault.default.Control, {
                                 type: "text",
                                 value: name,
                                 onChange: (e)=>setName(e.target.value)
@@ -26886,6 +26914,7 @@ function RegistrationView(props) {
                         ]
                     }),
                     /*#__PURE__*/ _jsxRuntime.jsx(_buttonDefault.default, {
+                        variant: "primary",
                         type: "submit",
                         onClick: handleSubmit,
                         __source: {
@@ -26897,7 +26926,7 @@ function RegistrationView(props) {
                     })
                 ]
             }),
-            /*#__PURE__*/ _jsxRuntime.jsxs("label", {
+            /*#__PURE__*/ _jsxRuntime.jsxs("div", {
                 __source: {
                     fileName: "src/components/registration-view/registration-view.jsx",
                     lineNumber: 49
