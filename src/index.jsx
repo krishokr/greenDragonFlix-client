@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import Container from 'react-bootstrap/Container';
 
 import { MainView } from './components/main-view/main-view';
 
@@ -10,7 +11,10 @@ import './index.scss';
 class GreenDragonFlixApplication extends React.Component{
     render() {
         return (
-            <MainView />
+            <Container>
+                <MainView />
+            </Container>
+            
         )
     }
 }

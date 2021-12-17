@@ -1,4 +1,6 @@
 import React from "react";
+import PropTypes from 'prop-types';
+import './movie-view.scss'
 
 //MovieView is the UI of the details once a title is clicked
 export class MovieView extends React.Component {
