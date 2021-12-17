@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import './registration-view.scss'
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
+import Col from "react-bootstrap/Col";
 
 export function RegistrationView(props) {
 
@@ -45,8 +46,9 @@ export function RegistrationView(props) {
                     <Form.Control type="text" value={name} onChange={e => setName(e.target.value)} ></Form.Control>
                 </Form.Group>
                 <Button variant="primary" type="submit" onClick={handleSubmit}>Submit</Button>
+                <Col>Already registered? <Button onClick={viewLogin}>Login Here</Button></Col>
             </Form>
-            <div>Already registered? <Button onClick={viewLogin}>Login Here</Button></div>
+            
         </>
         
     )

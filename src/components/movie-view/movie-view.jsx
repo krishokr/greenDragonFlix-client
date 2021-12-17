@@ -1,20 +1,18 @@
 import React from "react";
 import PropTypes from 'prop-types';
 import './movie-view.scss'
+import Button from 'react-bootstrap/Button';
+import Col from 'react-bootstrap/Col';
 
 //MovieView is the UI of the details once a title is clicked
 export class MovieView extends React.Component {
-
-    keypressCallback(event) {
-        console.log(event.key)
-    }
 
     render() {
 
         const {movie, onBackClick} = this.props;
 
         return (
-            <div className="movie-view">
+            <Col className="movie-view">
                 <div className="movie-poster">
                     { movie.ImagePath }
                 </div>
@@ -40,19 +38,11 @@ export class MovieView extends React.Component {
                     <span className="value">{ movie.Description }</span>
                 </div>
 
-                <button className="back-button" onClick={() => onBackClick()}>Back</button>
+                <Button className="back-button" onClick={() => onBackClick()}>Back</Button>
     
-            </div>
+            </Col>
            
         )
-    }
-
-    componentDidMount() {
-        document.addEventListener('keypress', this.keypressCallback)
-    }
-
-    componentWillUnmount() {
-        document.removeEventListener('keypress', this.keypressCallback)
     }
 
 }

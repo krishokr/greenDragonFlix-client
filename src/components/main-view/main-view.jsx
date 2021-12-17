@@ -76,7 +76,18 @@ export class MainView extends React.Component {
         if (!user) {
         
             return(
-                register ? <div className="main-view"><RegistrationView registerUser={(username, password, name, email) => this.registerUser(username, password, name, email)} viewLogin={() => this.viewLogin()}/></div> : <div className="main-view"><LoginView onLoggedIn={user => this.onLoggedIn(user)} onRegister={() => this.onRegister()}/></div>
+                register ? (
+                
+                <Row className="main-view justify-content-center">
+                    <RegistrationView registerUser={(username, password, name, email) => this.registerUser(username, password, name, email)} viewLogin={() => this.viewLogin()}/>
+                </Row> 
+                
+                ) : ( 
+                <Row className="main-view justify-content-center">
+                    <LoginView onLoggedIn={user => this.onLoggedIn(user)} onRegister={() => this.onRegister()}/>
+                </Row>
+                )
+                
             )
         }
 
