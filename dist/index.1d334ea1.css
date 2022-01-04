@@ -2,7 +2,8 @@
 
 
 
-.main-view, html, body {
+
+html, body {
   font-family: arno-pro-display, serif;
   font-weight: 700;
   font-style: normal;
@@ -19,6 +20,6 @@ h1 {
   font-weight: 400;
   font-style: normal;
   color: #90EE90;
+  padding: 2%;
 }
-
 /*# sourceMappingURL=index.1d334ea1.css.map */

@@ -1,8 +1,25 @@
-.green-dragon-flix {
-  color: steelblue;
+html, body {
+  font-family: arno-pro-display, serif;
+  font-weight: 700;
+  font-style: normal;
+  background-color: #141219;
+  color: #D8DFEE;
 }
 
-.back-button {
-  background-color: red;
+button {
+  background-color: #90EE90;
 }
+
+h1 {
+  font-family: adorn-roman, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  color: #90EE90;
+  padding: 2%;
+}
+
+
+
+
+
 /*# sourceMappingURL=index.caa67093.css.map */

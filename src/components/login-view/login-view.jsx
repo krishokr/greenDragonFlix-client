@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import './login-view.scss'
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
+import axios from 'axios';
 
 export function LoginView(props) {
     const [ username, setUsername ] = useState('');
@@ -13,8 +14,20 @@ export function LoginView(props) {
         e.preventDefault();
         console.log(username, password);
         //updates the user state of MainView and make movies list appear
-        props.onLoggedIn(username);
+
+        axios.post('/login', {
+            Username: username,
+            Password: password
+        })
+        .then(response => {
+            const data = response.data;
+            console.log('User is being logged in...' + data);
+            props.onLoggedIn(data);
+        })
+        .catch(() => console.log("User does not exist."))
+
     }
+    
     const onRegister = (e) => {
         e.preventDefault();
         props.onRegister();

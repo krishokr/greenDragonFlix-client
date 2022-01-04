@@ -1,6 +1,5 @@
 import React from 'react';
 import axios from 'axios';
-import './main-view.scss';
 
 import { LoginView } from '../login-view/login-view';
 import { MovieCard } from '../movie-card/movie-card';
@@ -9,7 +8,7 @@ import { RegistrationView } from '../registration-view/registration-view';
 import Row  from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col';
 
-
+import './main-view.scss';
 
 export class MainView extends React.Component {
     //initialization to use State -> need constructor() and super()
@@ -34,8 +33,25 @@ export class MainView extends React.Component {
         if (this.state.selectedMovie) return this.setState({selectedMovie: null})
     }
 
-    onLoggedIn(user) {
-        this.setState({user});
+    getMovies(token) {
+
+        axios.get('https://greendragonflix.herokuapp.com/movies', {
+            headers: { Authorization: `Bearer ${token}`}
+        })
+        .then(response => {
+            this.setState({movies: response.data})
+        })
+        .catch(error => console.log(error))
+
+    }
+
+    onLoggedIn(authData) {
+        console.log(authData);
+        this.setState({user: authData.user.Username});
+
+        localStorage.setItem('token', authData.token);
+        localStorage.setItem('user', authData.user.Username);
+        this.getMovies(authData.token);
     }
 
     onRegister() {
@@ -79,6 +95,7 @@ export class MainView extends React.Component {
                 register ? (
                 
                 <Row className="main-view justify-content-center">
+                    
                     <RegistrationView registerUser={(username, password, name, email) => this.registerUser(username, password, name, email)} viewLogin={() => this.viewLogin()}/>
                 </Row> 
                 
