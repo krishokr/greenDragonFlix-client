@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import './movie-view.scss'
 import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 import {Link} from 'react-router-dom';
 
@@ -17,7 +18,7 @@ export class MovieView extends React.Component {
         const {movie, onBackClick} = this.props;
 
         return (
-            <Router>
+            
                 <Col className="movie-view">
                     <div className="movie-poster">
                         { movie.ImagePath }
@@ -55,7 +56,7 @@ export class MovieView extends React.Component {
                     
         
                 </Col>
-            </Router>
+             
         )
     }
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 
 import { LoginView } from '../login-view/login-view';
@@ -98,13 +98,14 @@ export class MainView extends React.Component {
     render() {
         
         const {movies, selectedMovie, user, register} = this.state;
-        console.log(user)
+        console.log(user);
 
         //Case 1: No user
         if (!user) {
         
             return(
                <Router>
+                   <Routes>
                     register ? (
                         {/* // user needs to register */}
                          <Route path="/users/register" render={() => {
@@ -122,20 +123,24 @@ export class MainView extends React.Component {
                             </Row>
                         }} />
                     )
+                    </Routes>
                 </Router>
             )
         }
 
         //Case 2: No movies in database
         <Router>
+            <Routes>
             if (movies.length === 0) return <Route path="/" render={() => {
                 <div className="main-view"></div>
             }} />
+            </Routes>
         </Router>
 
         //Case 3: User exists and movies in database -> shows movies + movie cards
         return (
             <Router>
+                <Routes>
                 <Row className="main-view justify-content-md-center">
                     <Link to={"/users/login"} >
                         <Button variant="link" onClick={() => {this.logout()}}>Logout</Button>
@@ -161,6 +166,7 @@ export class MainView extends React.Component {
                     }} />
                     
                 </Row>
+                </Routes>
             </Router>
           );
         

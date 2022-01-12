@@ -22998,151 +22998,172 @@ class MainView extends _reactDefault.default.Component {
         const { movies , selectedMovie , user , register  } = this.state;
         console.log(user);
         //Case 1: No user
-        if (!user) return(/*#__PURE__*/ _jsxRuntime.jsxs(_reactRouterDom.BrowserRouter, {
+        if (!user) return(/*#__PURE__*/ _jsxRuntime.jsx(_reactRouterDom.BrowserRouter, {
             __source: {
                 fileName: "src/components/main-view/main-view.jsx",
                 lineNumber: 107
             },
             __self: this,
-            children: [
-                "register ? (",
-                /*#__PURE__*/ _jsxRuntime.jsx(_reactRouterDom.Route, {
-                    path: "/users/register",
-                    render: ()=>{
-                        /*#__PURE__*/ _jsxRuntime.jsx(_rowDefault.default, {
-                            className: "main-view justify-content-center",
-                            children: /*#__PURE__*/ _jsxRuntime.jsx(_registrationView.RegistrationView, {
-                                registerUser: (username, password, name, email)=>this.registerUser(username, password, name, email)
-                                ,
-                                viewLogin: ()=>this.viewLogin()
-                            })
-                        });
-                    },
-                    __source: {
-                        fileName: "src/components/main-view/main-view.jsx",
-                        lineNumber: 110
-                    },
-                    __self: this
-                }),
-                ") : ( // ",
-                /*#__PURE__*/ _jsxRuntime.jsx(_reactRouterDom.Route, {
-                    path: "/users/login",
-                    render: ()=>{
-                        /*#__PURE__*/ _jsxRuntime.jsx(_rowDefault.default, {
-                            className: "main-view justify-content-center",
-                            children: /*#__PURE__*/ _jsxRuntime.jsx(_loginView.LoginView, {
-                                onLoggedIn: (user1)=>this.onLoggedIn(user1)
-                                ,
-                                onRegister: ()=>this.onRegister()
-                            })
-                        });
-                    },
-                    __source: {
-                        fileName: "src/components/main-view/main-view.jsx",
-                        lineNumber: 119
-                    },
-                    __self: this
-                }),
-                ")"
-            ]
-        }));
-        //Case 2: No movies in database
-        /*#__PURE__*/ _jsxRuntime.jsxs(Router, {
-            __source: {
-                fileName: "src/components/main-view/main-view.jsx",
-                lineNumber: 130
-            },
-            __self: this,
-            children: [
-                "if (movies.length === 0) return ",
-                /*#__PURE__*/ _jsxRuntime.jsx(_reactRouterDom.Route, {
-                    path: "/",
-                    render: ()=>{
-                        /*#__PURE__*/ _jsxRuntime.jsx("div", {
-                            className: "main-view"
-                        });
-                    },
-                    __source: {
-                        fileName: "src/components/main-view/main-view.jsx",
-                        lineNumber: 131
-                    },
-                    __self: this
-                })
-            ]
-        });
-        //Case 3: User exists and movies in database -> shows movies + movie cards
-        return(/*#__PURE__*/ _jsxRuntime.jsx(Router, {
-            __source: {
-                fileName: "src/components/main-view/main-view.jsx",
-                lineNumber: 138
-            },
-            __self: this,
-            children: /*#__PURE__*/ _jsxRuntime.jsxs(_rowDefault.default, {
-                className: "main-view justify-content-md-center",
+            children: /*#__PURE__*/ _jsxRuntime.jsxs(_reactRouterDom.Routes, {
                 __source: {
                     fileName: "src/components/main-view/main-view.jsx",
-                    lineNumber: 139
+                    lineNumber: 108
                 },
                 __self: this,
                 children: [
-                    /*#__PURE__*/ _jsxRuntime.jsx(Link, {
-                        to: "/users/login",
-                        __source: {
-                            fileName: "src/components/main-view/main-view.jsx",
-                            lineNumber: 140
-                        },
-                        __self: this,
-                        children: /*#__PURE__*/ _jsxRuntime.jsx(Button, {
-                            variant: "link",
-                            onClick: ()=>{
-                                this.logout();
-                            },
-                            __source: {
-                                fileName: "src/components/main-view/main-view.jsx",
-                                lineNumber: 141
-                            },
-                            __self: this,
-                            children: "Logout"
-                        })
-                    }),
+                    "register ? (",
                     /*#__PURE__*/ _jsxRuntime.jsx(_reactRouterDom.Route, {
-                        exact: true,
-                        path: "/",
+                        path: "/users/register",
                         render: ()=>{
-                            //mapping each movie to a movie card
-                            return movies.map((m)=>/*#__PURE__*/ _jsxRuntime.jsx(_colDefault.default, {
-                                    md: 3,
-                                    children: /*#__PURE__*/ _jsxRuntime.jsx(_movieCard.MovieCard, {
-                                        movie: m
-                                    })
-                                }, m._id)
-                            );
+                            /*#__PURE__*/ _jsxRuntime.jsx(_rowDefault.default, {
+                                className: "main-view justify-content-center",
+                                children: /*#__PURE__*/ _jsxRuntime.jsx(_registrationView.RegistrationView, {
+                                    registerUser: (username, password, name, email)=>this.registerUser(username, password, name, email)
+                                    ,
+                                    viewLogin: ()=>this.viewLogin()
+                                })
+                            });
                         },
                         __source: {
                             fileName: "src/components/main-view/main-view.jsx",
-                            lineNumber: 144
+                            lineNumber: 111
                         },
                         __self: this
                     }),
+                    ") : ( // ",
                     /*#__PURE__*/ _jsxRuntime.jsx(_reactRouterDom.Route, {
-                        path: "/movies/:movieId",
-                        render: ({ match , history  })=>{
-                            return(/*#__PURE__*/ _jsxRuntime.jsx(_colDefault.default, {
-                                md: 8,
-                                children: /*#__PURE__*/ _jsxRuntime.jsx(_movieView.MovieView, {
-                                    movie: movies.find((m)=>m._id === match.params.movieId
-                                    ),
-                                    onBackClick: history.goBack()
+                        path: "/users/login",
+                        render: ()=>{
+                            /*#__PURE__*/ _jsxRuntime.jsx(_rowDefault.default, {
+                                className: "main-view justify-content-center",
+                                children: /*#__PURE__*/ _jsxRuntime.jsx(_loginView.LoginView, {
+                                    onLoggedIn: (user1)=>this.onLoggedIn(user1)
+                                    ,
+                                    onRegister: ()=>this.onRegister()
                                 })
-                            }));
+                            });
                         },
                         __source: {
                             fileName: "src/components/main-view/main-view.jsx",
-                            lineNumber: 157
+                            lineNumber: 120
+                        },
+                        __self: this
+                    }),
+                    ")"
+                ]
+            })
+        }));
+        //Case 2: No movies in database
+        /*#__PURE__*/ _jsxRuntime.jsx(_reactRouterDom.BrowserRouter, {
+            __source: {
+                fileName: "src/components/main-view/main-view.jsx",
+                lineNumber: 132
+            },
+            __self: this,
+            children: /*#__PURE__*/ _jsxRuntime.jsxs(_reactRouterDom.Routes, {
+                __source: {
+                    fileName: "src/components/main-view/main-view.jsx",
+                    lineNumber: 133
+                },
+                __self: this,
+                children: [
+                    "if (movies.length === 0) return ",
+                    /*#__PURE__*/ _jsxRuntime.jsx(_reactRouterDom.Route, {
+                        path: "/",
+                        render: ()=>{
+                            /*#__PURE__*/ _jsxRuntime.jsx("div", {
+                                className: "main-view"
+                            });
+                        },
+                        __source: {
+                            fileName: "src/components/main-view/main-view.jsx",
+                            lineNumber: 134
                         },
                         __self: this
                     })
                 ]
+            })
+        });
+        //Case 3: User exists and movies in database -> shows movies + movie cards
+        return(/*#__PURE__*/ _jsxRuntime.jsx(_reactRouterDom.BrowserRouter, {
+            __source: {
+                fileName: "src/components/main-view/main-view.jsx",
+                lineNumber: 142
+            },
+            __self: this,
+            children: /*#__PURE__*/ _jsxRuntime.jsx(_reactRouterDom.Routes, {
+                __source: {
+                    fileName: "src/components/main-view/main-view.jsx",
+                    lineNumber: 143
+                },
+                __self: this,
+                children: /*#__PURE__*/ _jsxRuntime.jsxs(_rowDefault.default, {
+                    className: "main-view justify-content-md-center",
+                    __source: {
+                        fileName: "src/components/main-view/main-view.jsx",
+                        lineNumber: 144
+                    },
+                    __self: this,
+                    children: [
+                        /*#__PURE__*/ _jsxRuntime.jsx(Link, {
+                            to: "/users/login",
+                            __source: {
+                                fileName: "src/components/main-view/main-view.jsx",
+                                lineNumber: 145
+                            },
+                            __self: this,
+                            children: /*#__PURE__*/ _jsxRuntime.jsx(Button, {
+                                variant: "link",
+                                onClick: ()=>{
+                                    this.logout();
+                                },
+                                __source: {
+                                    fileName: "src/components/main-view/main-view.jsx",
+                                    lineNumber: 146
+                                },
+                                __self: this,
+                                children: "Logout"
+                            })
+                        }),
+                        /*#__PURE__*/ _jsxRuntime.jsx(_reactRouterDom.Route, {
+                            exact: true,
+                            path: "/",
+                            render: ()=>{
+                                //mapping each movie to a movie card
+                                return movies.map((m)=>/*#__PURE__*/ _jsxRuntime.jsx(_colDefault.default, {
+                                        md: 3,
+                                        children: /*#__PURE__*/ _jsxRuntime.jsx(_movieCard.MovieCard, {
+                                            movie: m
+                                        })
+                                    }, m._id)
+                                );
+                            },
+                            __source: {
+                                fileName: "src/components/main-view/main-view.jsx",
+                                lineNumber: 149
+                            },
+                            __self: this
+                        }),
+                        /*#__PURE__*/ _jsxRuntime.jsx(_reactRouterDom.Route, {
+                            path: "/movies/:movieId",
+                            render: ({ match , history  })=>{
+                                return(/*#__PURE__*/ _jsxRuntime.jsx(_colDefault.default, {
+                                    md: 8,
+                                    children: /*#__PURE__*/ _jsxRuntime.jsx(_movieView.MovieView, {
+                                        movie: movies.find((m)=>m._id === match.params.movieId
+                                        ),
+                                        onBackClick: history.goBack()
+                                    })
+                                }));
+                            },
+                            __source: {
+                                fileName: "src/components/main-view/main-view.jsx",
+                                lineNumber: 162
+                            },
+                            __self: this
+                        })
+                    ]
+                })
             })
         }));
     }
@@ -28434,162 +28455,155 @@ var _directorViewDefault = parcelHelpers.interopDefault(_directorView);
 class MovieView extends _reactDefault.default.Component {
     render() {
         const { movie , onBackClick  } = this.props;
-        return(/*#__PURE__*/ _jsxRuntime.jsx(Router, {
+        return(/*#__PURE__*/ _jsxRuntime.jsxs(_colDefault.default, {
+            className: "movie-view",
             __source: {
                 fileName: "src/components/movie-view/movie-view.jsx",
-                lineNumber: 20
+                lineNumber: 22
             },
             __self: this,
-            children: /*#__PURE__*/ _jsxRuntime.jsxs(_colDefault.default, {
-                className: "movie-view",
-                __source: {
-                    fileName: "src/components/movie-view/movie-view.jsx",
-                    lineNumber: 21
-                },
-                __self: this,
-                children: [
-                    /*#__PURE__*/ _jsxRuntime.jsx("div", {
-                        className: "movie-poster",
-                        __source: {
-                            fileName: "src/components/movie-view/movie-view.jsx",
-                            lineNumber: 22
-                        },
-                        __self: this,
-                        children: movie.ImagePath
-                    }),
-                    /*#__PURE__*/ _jsxRuntime.jsxs("div", {
-                        className: "movie-title",
-                        __source: {
-                            fileName: "src/components/movie-view/movie-view.jsx",
-                            lineNumber: 25
-                        },
-                        __self: this,
-                        children: [
-                            /*#__PURE__*/ _jsxRuntime.jsx("span", {
-                                className: "label",
-                                __source: {
-                                    fileName: "src/components/movie-view/movie-view.jsx",
-                                    lineNumber: 26
-                                },
-                                __self: this,
-                                children: "Title: "
-                            }),
-                            /*#__PURE__*/ _jsxRuntime.jsx("span", {
-                                className: "value",
-                                __source: {
-                                    fileName: "src/components/movie-view/movie-view.jsx",
-                                    lineNumber: 27
-                                },
-                                __self: this,
-                                children: movie.Title
-                            })
-                        ]
-                    }),
-                    /*#__PURE__*/ _jsxRuntime.jsx(Route, {
-                        path: `/directors:name`,
-                        render: ({ match , history  })=>{
-                            if (movies.length === 0) return(/*#__PURE__*/ _jsxRuntime.jsx("div", {
-                                className: "main-view"
-                            }));
-                            return(/*#__PURE__*/ _jsxRuntime.jsx(_directorViewDefault.default, {
-                                director: movies.find((m)=>m.Director.Name === match.params.name
-                                ).Director,
-                                onBackClick: ()=>history.goBack()
-                            }));
-                        },
-                        __source: {
-                            fileName: "src/components/movie-view/movie-view.jsx",
-                            lineNumber: 30
-                        },
-                        __self: this
-                    }),
-                    /*#__PURE__*/ _jsxRuntime.jsxs("div", {
-                        className: "movie-year",
-                        __source: {
-                            fileName: "src/components/movie-view/movie-view.jsx",
-                            lineNumber: 37
-                        },
-                        __self: this,
-                        children: [
-                            /*#__PURE__*/ _jsxRuntime.jsx("span", {
-                                className: "label",
-                                __source: {
-                                    fileName: "src/components/movie-view/movie-view.jsx",
-                                    lineNumber: 38
-                                },
-                                __self: this,
-                                children: "Year Released: "
-                            }),
-                            /*#__PURE__*/ _jsxRuntime.jsx("span", {
-                                className: "value",
-                                __source: {
-                                    fileName: "src/components/movie-view/movie-view.jsx",
-                                    lineNumber: 39
-                                },
-                                __self: this,
-                                children: movie.Year
-                            })
-                        ]
-                    }),
-                    /*#__PURE__*/ _jsxRuntime.jsx(Route, {
-                        path: `/genres:name`,
-                        render: ({ match , history  })=>{
-                            if (movies.length === 0) return(/*#__PURE__*/ _jsxRuntime.jsx("div", {
-                                className: "main-view"
-                            }));
-                            return(/*#__PURE__*/ _jsxRuntime.jsx(_genreViewDefault.default, {
-                                genre: movies.find((m)=>m.Genre.Name === match.params.name
-                                ).Genre,
-                                onBackClick: ()=>history.goBack()
-                            }));
-                        },
-                        __source: {
-                            fileName: "src/components/movie-view/movie-view.jsx",
-                            lineNumber: 42
-                        },
-                        __self: this
-                    }),
-                    /*#__PURE__*/ _jsxRuntime.jsxs("div", {
-                        className: "movie-description",
-                        __source: {
-                            fileName: "src/components/movie-view/movie-view.jsx",
-                            lineNumber: 49
-                        },
-                        __self: this,
-                        children: [
-                            /*#__PURE__*/ _jsxRuntime.jsx("span", {
-                                className: "label",
-                                __source: {
-                                    fileName: "src/components/movie-view/movie-view.jsx",
-                                    lineNumber: 50
-                                },
-                                __self: this,
-                                children: "Description: "
-                            }),
-                            /*#__PURE__*/ _jsxRuntime.jsx("span", {
-                                className: "value",
-                                __source: {
-                                    fileName: "src/components/movie-view/movie-view.jsx",
-                                    lineNumber: 51
-                                },
-                                __self: this,
-                                children: movie.Description
-                            })
-                        ]
-                    }),
-                    /*#__PURE__*/ _jsxRuntime.jsx(_buttonDefault.default, {
-                        className: "back-button",
-                        onClick: ()=>onBackClick()
-                        ,
-                        __source: {
-                            fileName: "src/components/movie-view/movie-view.jsx",
-                            lineNumber: 54
-                        },
-                        __self: this,
-                        children: "Back"
-                    })
-                ]
-            })
+            children: [
+                /*#__PURE__*/ _jsxRuntime.jsx("div", {
+                    className: "movie-poster",
+                    __source: {
+                        fileName: "src/components/movie-view/movie-view.jsx",
+                        lineNumber: 23
+                    },
+                    __self: this,
+                    children: movie.ImagePath
+                }),
+                /*#__PURE__*/ _jsxRuntime.jsxs("div", {
+                    className: "movie-title",
+                    __source: {
+                        fileName: "src/components/movie-view/movie-view.jsx",
+                        lineNumber: 26
+                    },
+                    __self: this,
+                    children: [
+                        /*#__PURE__*/ _jsxRuntime.jsx("span", {
+                            className: "label",
+                            __source: {
+                                fileName: "src/components/movie-view/movie-view.jsx",
+                                lineNumber: 27
+                            },
+                            __self: this,
+                            children: "Title: "
+                        }),
+                        /*#__PURE__*/ _jsxRuntime.jsx("span", {
+                            className: "value",
+                            __source: {
+                                fileName: "src/components/movie-view/movie-view.jsx",
+                                lineNumber: 28
+                            },
+                            __self: this,
+                            children: movie.Title
+                        })
+                    ]
+                }),
+                /*#__PURE__*/ _jsxRuntime.jsx(_reactRouterDom.Route, {
+                    path: `/directors:name`,
+                    render: ({ match , history  })=>{
+                        if (movies.length === 0) return(/*#__PURE__*/ _jsxRuntime.jsx("div", {
+                            className: "main-view"
+                        }));
+                        return(/*#__PURE__*/ _jsxRuntime.jsx(_directorViewDefault.default, {
+                            director: movies.find((m)=>m.Director.Name === match.params.name
+                            ).Director,
+                            onBackClick: ()=>history.goBack()
+                        }));
+                    },
+                    __source: {
+                        fileName: "src/components/movie-view/movie-view.jsx",
+                        lineNumber: 31
+                    },
+                    __self: this
+                }),
+                /*#__PURE__*/ _jsxRuntime.jsxs("div", {
+                    className: "movie-year",
+                    __source: {
+                        fileName: "src/components/movie-view/movie-view.jsx",
+                        lineNumber: 38
+                    },
+                    __self: this,
+                    children: [
+                        /*#__PURE__*/ _jsxRuntime.jsx("span", {
+                            className: "label",
+                            __source: {
+                                fileName: "src/components/movie-view/movie-view.jsx",
+                                lineNumber: 39
+                            },
+                            __self: this,
+                            children: "Year Released: "
+                        }),
+                        /*#__PURE__*/ _jsxRuntime.jsx("span", {
+                            className: "value",
+                            __source: {
+                                fileName: "src/components/movie-view/movie-view.jsx",
+                                lineNumber: 40
+                            },
+                            __self: this,
+                            children: movie.Year
+                        })
+                    ]
+                }),
+                /*#__PURE__*/ _jsxRuntime.jsx(_reactRouterDom.Route, {
+                    path: `/genres:name`,
+                    render: ({ match , history  })=>{
+                        if (movies.length === 0) return(/*#__PURE__*/ _jsxRuntime.jsx("div", {
+                            className: "main-view"
+                        }));
+                        return(/*#__PURE__*/ _jsxRuntime.jsx(_genreViewDefault.default, {
+                            genre: movies.find((m)=>m.Genre.Name === match.params.name
+                            ).Genre,
+                            onBackClick: ()=>history.goBack()
+                        }));
+                    },
+                    __source: {
+                        fileName: "src/components/movie-view/movie-view.jsx",
+                        lineNumber: 43
+                    },
+                    __self: this
+                }),
+                /*#__PURE__*/ _jsxRuntime.jsxs("div", {
+                    className: "movie-description",
+                    __source: {
+                        fileName: "src/components/movie-view/movie-view.jsx",
+                        lineNumber: 50
+                    },
+                    __self: this,
+                    children: [
+                        /*#__PURE__*/ _jsxRuntime.jsx("span", {
+                            className: "label",
+                            __source: {
+                                fileName: "src/components/movie-view/movie-view.jsx",
+                                lineNumber: 51
+                            },
+                            __self: this,
+                            children: "Description: "
+                        }),
+                        /*#__PURE__*/ _jsxRuntime.jsx("span", {
+                            className: "value",
+                            __source: {
+                                fileName: "src/components/movie-view/movie-view.jsx",
+                                lineNumber: 52
+                            },
+                            __self: this,
+                            children: movie.Description
+                        })
+                    ]
+                }),
+                /*#__PURE__*/ _jsxRuntime.jsx(_buttonDefault.default, {
+                    className: "back-button",
+                    onClick: ()=>onBackClick()
+                    ,
+                    __source: {
+                        fileName: "src/components/movie-view/movie-view.jsx",
+                        lineNumber: 55
+                    },
+                    __self: this,
+                    children: "Back"
+                })
+            ]
         }));
     }
 }
