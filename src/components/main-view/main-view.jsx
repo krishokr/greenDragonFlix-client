@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 
 
 import { LoginView } from '../login-view/login-view';
@@ -10,6 +10,7 @@ import { MovieView } from '../movie-view/movie-view';
 import { RegistrationView } from '../registration-view/registration-view';
 import Row  from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col';
+import Button from 'react-bootstrap/Button';
 
 import './main-view.scss';
 
@@ -22,7 +23,7 @@ export class MainView extends React.Component {
             movies: [],
             selectedMovie: null,
             user: null,
-            register: null
+            register: true
         }
         
 
@@ -95,58 +96,70 @@ export class MainView extends React.Component {
         })
     }
 
+    // changeLoginOrRegisterView() {
+    //     return this.state.register ? (
+    //         /* // user needs to register */
+    //         <Row className="main-view justify-content-center">
+    //                     <RegistrationView registerUser={(username, password, name, email) => this.registerUser(username, password, name, email)} viewLogin={() => this.viewLogin()}/>
+    //                 </Row> 
+ 
+    //     ) : ( 
+    //         // {/* user needs to login */}           
+    //             <Row className="main-view justify-content-center">
+    //                 <LoginView onLoggedIn={user => this.onLoggedIn(user)} onRegister={() => this.onRegister()}/>
+    //             </Row>         
+    //     )
+    // }
+
     render() {
         
         const {movies, selectedMovie, user, register} = this.state;
-        console.log(user);
+        // console.log(user);
 
         //Case 1: No user
         if (!user) {
-        
-            return(
-               <Router>
-                   <Routes>
-                    register ? (
-                        {/* // user needs to register */}
-                         <Route path="/users/register" render={() => {
+            
+            <Routes>
+                
+                <Route path="/" element={ 
 
-                                <Row className="main-view justify-content-center">
-                                    <RegistrationView registerUser={(username, password, name, email) => this.registerUser(username, password, name, email)} viewLogin={() => this.viewLogin()}/>
-                                </Row> 
-                        }} />
+                    <Row className="main-view justify-content-center">
+                        <RegistrationView registerUser={(username, password, name, email) => this.registerUser(username, password, name, email)} viewLogin={() => this.viewLogin()}/>
+                    </Row>   
 
-                    ) : ( 
-                        // {/* user needs to login */}
-                         <Route path="/users/login" render={() => {
-                            <Row className="main-view justify-content-center">
-                                <LoginView onLoggedIn={user => this.onLoggedIn(user)} onRegister={() => this.onRegister()}/>
-                            </Row>
-                        }} />
-                    )
-                    </Routes>
-                </Router>
-            )
+                } /> 
+                
+                
+                <Route path="/login" element={
+
+                    <Row className="main-view justify-content-center">
+                        <LoginView onLoggedIn={user => this.onLoggedIn(user)} onRegister={() => this.onRegister()}/>
+                    </Row>    
+
+                } />                                                     
+            </Routes>
+            
         }
 
         //Case 2: No movies in database
-        <Router>
-            <Routes>
-            if (movies.length === 0) return <Route path="/" render={() => {
-                <div className="main-view"></div>
-            }} />
-            </Routes>
-        </Router>
+        if (movies.length === 0) {
+            
+            return  <Routes>
+                        <Route path={"/"} element={
+                            <div className="main-view"></div>
+                        } />
+                    </Routes>
+        }
 
         //Case 3: User exists and movies in database -> shows movies + movie cards
         return (
-            <Router>
-                <Routes>
+            <Routes>
                 <Row className="main-view justify-content-md-center">
-                    <Link to={"/users/login"} >
+                    <Link to={"/"} >
                         <Button variant="link" onClick={() => {this.logout()}}>Logout</Button>
                     </Link>
                     {/* Home route  */}
-                    <Route exact path="/" render={() => {
+                    <Route exact path="/browse" render={() => {
                         //mapping each movie to a movie card
                         return movies.map(m => (
 
@@ -167,7 +180,7 @@ export class MainView extends React.Component {
                     
                 </Row>
                 </Routes>
-            </Router>
+           
           );
         
     }

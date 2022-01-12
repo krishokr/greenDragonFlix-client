@@ -4,7 +4,7 @@ import './registration-view.scss'
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Col from "react-bootstrap/Col";
-
+import { Link } from "react-router-dom";
 export function RegistrationView(props) {
 
     const [name, setName] = useState('');
@@ -79,8 +79,15 @@ export function RegistrationView(props) {
                     <Form.Label>Name: </Form.Label>
                     <Form.Control type="text" value={name} onChange={e => setName(e.target.value)} ></Form.Control>
                 </Form.Group>
+
+                
                 <Button variant="primary" type="submit" onClick={handleSubmit}>Submit</Button>
-                <Col>Already registered? <Button onClick={viewLogin}>Login Here</Button></Col>
+
+                <Col>Already registered? 
+                    <Link to="/login">
+                        <Button>Login Here</Button>
+                    </Link>
+                </Col>
             </Form>
             
         </>
