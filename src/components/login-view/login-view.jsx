@@ -6,7 +6,10 @@ import Button from 'react-bootstrap/Button';
 import axios from 'axios';
 import { Link } from "react-router-dom";
 
+import { useNavigate } from "react-router-dom";
+
 export function LoginView(props) {
+    let navigate = useNavigate();
     const [ username, setUsername ] = useState('');
     const [ password, setPassword ] = useState('');
 
@@ -38,7 +41,8 @@ export function LoginView(props) {
 
 
     const handleSubmit = (e) => {
-        e.preventDefault();
+        navigate("/browse");
+        
         console.log(username, password);
         const isReq = validate();
 
@@ -59,10 +63,6 @@ export function LoginView(props) {
 
     }
     
-    const onRegister = (e) => {
-        e.preventDefault();
-        props.onRegister();
-    }
 
     return(
         <>
@@ -78,10 +78,11 @@ export function LoginView(props) {
                     <Form.Control type="password" onChange={e => setPassword(e.target.value)} />
                     {passwordErr && <p>{passwordErr}</p>}
                 </Form.Group>
-                <Button variant="primary" type="submit" onClick={handleSubmit}>Submit</Button>
 
-                <Link to={"/"}>
-                    <Button variant="primary" type="button" onClick={onRegister}>Register</Button>
+                <Button onClick={() => handleSubmit()}>Submit</Button>
+
+                <Link to="/">
+                    <Button variant="primary" type="button" >Register</Button>
                 </Link>
             </Form>
             
@@ -90,6 +91,6 @@ export function LoginView(props) {
 }
 
 LoginView.propTypes = {
-    onLoggedIn: PropTypes.func.isRequired,
-    onRegister: PropTypes.func.isRequired
+    onLoggedIn: PropTypes.func.isRequired
+  
 };

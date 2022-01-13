@@ -48,10 +48,10 @@ export function RegistrationView(props) {
         props.registerUser(username, password, name, email);
     }
 
-    const viewLogin = (e) => {
-        e.preventDefault();
-        props.viewLogin();
-    }
+    // const viewLogin = (e) => {
+    //     e.preventDefault();
+    //     props.viewLogin();
+    // }
     
 
     return(
@@ -97,5 +97,5 @@ export function RegistrationView(props) {
 
 RegistrationView.propTypes = {
     registerUser: PropTypes.func.isRequired,
-    viewLogin: PropTypes.func.isRequired
+    
 };

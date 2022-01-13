@@ -4,7 +4,7 @@ import './movie-card.scss';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 
-import {Link} from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 
 
 export class MovieCard extends React.Component {
@@ -18,9 +18,9 @@ export class MovieCard extends React.Component {
                 <Card.Body>
                     <Card.Title>{movie.Title}</Card.Title>
                     <Card.Text>{movie.Description}</Card.Text>
-                    <Link to={`/movies/${movie._id}`}>
-                        <Button variant="link" variant="link">Open</Button>   
-                    </Link>            
+                    
+                    <Button onClick={useNavigate(`/browse/${movie._id}`)} >Open</Button>   
+                              
                 </Card.Body>
             </Card>
             
@@ -39,6 +39,5 @@ MovieCard.propTypes = {
             Name: PropTypes.string
         }),
         ImagePath: PropTypes.string.isRequired
-    }).isRequired,
-    onMovieClick: PropTypes.func.isRequired
+    }).isRequired
 };

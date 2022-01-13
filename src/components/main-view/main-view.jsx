@@ -1,7 +1,8 @@
 import React from 'react';
 import axios from 'axios';
 
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import {useNavigate, useParams} from 'react-router-dom';
 
 
 import { LoginView } from '../login-view/login-view';
@@ -89,6 +90,7 @@ export class MainView extends React.Component {
     }
 
     logout() {
+        useNavigate("/");
         localStorage.removeItem('token');
         localStorage.removeItem('user');
         this.setState({
@@ -96,48 +98,35 @@ export class MainView extends React.Component {
         })
     }
 
-    // changeLoginOrRegisterView() {
-    //     return this.state.register ? (
-    //         /* // user needs to register */
-    //         <Row className="main-view justify-content-center">
-    //                     <RegistrationView registerUser={(username, password, name, email) => this.registerUser(username, password, name, email)} viewLogin={() => this.viewLogin()}/>
-    //                 </Row> 
- 
-    //     ) : ( 
-    //         // {/* user needs to login */}           
-    //             <Row className="main-view justify-content-center">
-    //                 <LoginView onLoggedIn={user => this.onLoggedIn(user)} onRegister={() => this.onRegister()}/>
-    //             </Row>         
-    //     )
-    // }
+    mapMovieToMovieCard() {
+        return this.state.movies.map(m => (
+            <Col md={3} key={m._id}>
+                <MovieCard movie={m} />
+            </Col>
+        ))
+    }
 
     render() {
         
         const {movies, selectedMovie, user, register} = this.state;
+        let { movieId } = useParams();
         // console.log(user);
 
         //Case 1: No user
         if (!user) {
             
-            <Routes>
+            return  <Routes>
                 
-                <Route path="/" element={ 
-
-                    <Row className="main-view justify-content-center">
-                        <RegistrationView registerUser={(username, password, name, email) => this.registerUser(username, password, name, email)} viewLogin={() => this.viewLogin()}/>
-                    </Row>   
-
-                } /> 
-                
-                
-                <Route path="/login" element={
-
-                    <Row className="main-view justify-content-center">
-                        <LoginView onLoggedIn={user => this.onLoggedIn(user)} onRegister={() => this.onRegister()}/>
-                    </Row>    
-
-                } />                                                     
-            </Routes>
+                        <Route exact path="/"  element={ 
+                            <RegistrationView registerUser={(username, password, name, email) => this.registerUser(username, password, name, email)} />
+                        } /> 
+                        
+                        
+                        <Route path="/login" element={
+                            <LoginView onLoggedIn={user => this.onLoggedIn(user)} />
+                        } />  
+                                                                        
+                    </Routes>
             
         }
 
@@ -145,43 +134,28 @@ export class MainView extends React.Component {
         if (movies.length === 0) {
             
             return  <Routes>
-                        <Route path={"/"} element={
+                        <Route path="/" element={
                             <div className="main-view"></div>
                         } />
                     </Routes>
         }
 
         //Case 3: User exists and movies in database -> shows movies + movie cards
-        return (
-            <Routes>
-                <Row className="main-view justify-content-md-center">
-                    <Link to={"/"} >
-                        <Button variant="link" onClick={() => {this.logout()}}>Logout</Button>
-                    </Link>
-                    {/* Home route  */}
-                    <Route exact path="/browse" render={() => {
-                        //mapping each movie to a movie card
-                        return movies.map(m => (
+        return <>
 
-                                            <Col md={3} key={m._id}>
-                                                <MovieCard movie={m} />
+                    <Button type="button" variant="primary" variant="link" onClick={() => this.logout()}>Logout</Button>       
+        
+                    <Routes>
+                            <Route exact path="/browse" element={this.mapMovieToMovieCard()} />
 
-                                                
-                                            </Col>
-                        ))
-                    }} />
-
-                    {/* Movies route */}
-                    <Route path="/movies/:movieId" render={({ match, history }) => {
-                        return <Col md={8}>
-                                    <MovieView movie={movies.find(m => m._id === match.params.movieId)} onBackClick={history.goBack()} />
-                                </Col>
-                    }} />
-                    
-                </Row>
-                </Routes>
-           
-          );
+                            {/* this path is not being routed to properly from movieCard */}
+                            <Route path="/browse/:movieId" element={
+                                       
+                                <MovieView movie={movies.find(m => m._id === { movieId })} />
+                                     
+                            } />  
+                    </Routes>
+           </>
         
     }
 

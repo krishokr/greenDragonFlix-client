@@ -5,7 +5,7 @@ import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
-import {Link} from 'react-router-dom';
+import {useParams} from 'react-router-dom';
 
 import GenreView from "../genre-view/genre-view";
 import DirectorView from "../director-view/director-view";
@@ -16,6 +16,8 @@ export class MovieView extends React.Component {
     render() {
 
         const {movie, onBackClick} = this.props;
+        console.log(movie)
+
 
         return (
             
@@ -28,24 +30,24 @@ export class MovieView extends React.Component {
                         <span className="value">{ movie.Title }</span>
                     </div>
 
-                    <Route path={`/directors:name`} render={({match, history}) => {
+                    {/* <Route path={`/directors:name`} render={({match, history}) => {
 
                         if (movies.length === 0) return <div className="main-view" />;
 
                         return <DirectorView director={movies.find(m => m.Director.Name === match.params.name).Director} onBackClick={() => history.goBack()} />
-                    }} />
+                    }} /> */}
                     
                     <div className="movie-year">
                         <span className="label">Year Released: </span>
                         <span className="value">{ movie.Year }</span>
                     </div>
 
-                    <Route path={`/genres:name`} render={({match, history}) => {
+                    {/* <Route path={`/genres:name`} render={({match, history}) => {
 
                         if (movies.length === 0) return <div className="main-view" />;
                         
                         return <GenreView genre={movies.find(m => m.Genre.Name === match.params.name).Genre} onBackClick={() => history.goBack()} />
-                    }} />
+                    }} /> */}
 
                     <div className="movie-description">
                         <span className="label">Description: </span>
