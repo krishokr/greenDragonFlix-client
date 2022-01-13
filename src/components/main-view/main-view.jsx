@@ -148,7 +148,7 @@ export class MainView extends React.Component {
                     <Routes>
                             <Route exact path="/browse" element={this.mapMovieToMovieCard()} />
 
-                            {/* this path is not being routed to properly from movieCard */}
+                            
                             <Route path="/browse/:movieId" element={
                                        
                                 <MovieView movie={movies.find(m => m._id === { movieId })} />

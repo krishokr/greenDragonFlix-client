@@ -13,12 +13,19 @@ import DirectorView from "../director-view/director-view";
 //MovieView is the UI of the details once a title is clicked
 export class MovieView extends React.Component {
 
+    // viewDirector() {
+    //     if (this.props.movies.length === 0) return <div className="main-view" />;
+
+    //     return <DirectorView director={movies.find(m => m.Director.Name === match.params.name).Director} onBackClick={() => history.goBack()} />
+    
+    // }
+
     render() {
 
         const {movie, onBackClick} = this.props;
         console.log(movie)
 
-
+    
         return (
             
                 <Col className="movie-view">
@@ -30,7 +37,7 @@ export class MovieView extends React.Component {
                         <span className="value">{ movie.Title }</span>
                     </div>
 
-                    {/* <Route path={`/directors:name`} render={({match, history}) => {
+                    {/* <Route path="/directors:name" element={
 
                         if (movies.length === 0) return <div className="main-view" />;
 
@@ -54,7 +61,7 @@ export class MovieView extends React.Component {
                         <span className="value">{ movie.Description }</span>
                     </div>
                     
-                    <Button className="back-button" onClick={() => onBackClick()}>Back</Button>
+                    <Button className="back-button" >Back</Button>
                     
         
                 </Col>
