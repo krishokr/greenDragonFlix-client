@@ -1,23 +1,26 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Container from 'react-bootstrap/Container';
 import { BrowserRouter } from 'react-router-dom';
 
 import { MainView } from './components/main-view/main-view';
 
 // Import statement to indicate that you need to bundle `./index.scss`
-import './index.scss';
+import 'bootstrap/dist/css/bootstrap.min.css';
+
+
 
 // Main component (will eventually use all the others)
-class GreenDragonFlixApplication extends React.Component{
-    render() {
+export default function GreenDragonFlixApplication() {
+  
         return (
-            <BrowserRouter>              
-                <MainView />               
+            <BrowserRouter> 
+              
+                <MainView />  
+        
             </BrowserRouter>
                 
         )
-    }
+    
 }
 
 //Finds the root of your app

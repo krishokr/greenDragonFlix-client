@@ -41,13 +41,12 @@ export function LoginView(props) {
 
 
     const handleSubmit = (e) => {
-        navigate("/browse");
         
         console.log(username, password);
         const isReq = validate();
 
         if (isReq) {
-
+                //should use useEffect here...
             //updates the user state of MainView and make movies list appear
             axios.post('https://greendragonflix.herokuapp.com/login', {
                 Username: username,
@@ -55,8 +54,9 @@ export function LoginView(props) {
             })
             .then(response => {
                 const data = response.data;
-                console.log('User is being logged in...' + data);
+                console.log(data);
                 props.onLoggedIn(data);
+                navigate("/browse");
             })
             .catch(() => console.log("User does not exist."))
         }
@@ -79,10 +79,10 @@ export function LoginView(props) {
                     {passwordErr && <p>{passwordErr}</p>}
                 </Form.Group>
 
-                <Button onClick={() => handleSubmit()}>Submit</Button>
+                <Button className="btn-primary-custom" onClick={() => handleSubmit()}>Submit</Button>
 
                 <Link to="/">
-                    <Button variant="primary" type="button" >Register</Button>
+                    <Button className="btn-primary-custom" type="button" >Register</Button>
                 </Link>
             </Form>
             

@@ -1,183 +1,217 @@
-import React from 'react';
-import axios from 'axios';
+import React, {useState, useEffect } from "react";
+import axios from "axios";
 
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import {useNavigate, useParams} from 'react-router-dom';
+import {useNavigate, useParams, useSearchParams} from 'react-router-dom';
 
 
 import { LoginView } from '../login-view/login-view';
 import { MovieCard } from '../movie-card/movie-card';
 import { MovieView } from '../movie-view/movie-view';
+import { Header } from "../header.jsx/header";
 import { RegistrationView } from '../registration-view/registration-view';
-import Row  from 'react-bootstrap/Row'
+import Container from 'react-bootstrap/Container';
+import Row  from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 
-import './main-view.scss';
 
-export class MainView extends React.Component {
-    //initialization to use State -> need constructor() and super()
-    constructor() {
-        super();
 
-        this.state = {
-            movies: [],
-            selectedMovie: null,
-            user: null,
-            register: true
-        }
-        
 
-    }
-    //custom component method
-    setSelectedMovie(newSelectedMovie) {
-        this.setState({selectedMovie: newSelectedMovie});
-    }
 
-    onBackClick() {
-        if (this.state.selectedMovie) return this.setState({selectedMovie: null})
+export function MainView(props) {
+    let navigate = useNavigate();
+
+    const [movies, setMovies] = useState([]);
+    const [user, setUser] = useState(null);
+    const [newUser, setNewUser] = useState(false);
+    const [authData, setAuthData] = useState(null);
+    const [movieId, setMovieId] = useState(null);
+
+    
+
+// Functions for Logout
+    function logout() {
+        navigate("/");
+        localStorage.removeItem('token');
+        localStorage.removeItem('user');
+        setUser(null);
     }
 
-    getMovies(token) {
 
-        axios.get('https://greendragonflix.herokuapp.com/movies', {
-            headers: { Authorization: `Bearer ${token}`}
-        })
-        .then(response => {
-            this.setState({movies: response.data})
-        })
-        .catch(error => console.log(error))
-
-    }
-
-    onLoggedIn(authData) {
+// Functions for LoginView
+  
+    function onLoggedIn(authData) {
+        console.log("On Logged In")
         console.log(authData);
-        this.setState({user: authData.user.Username});
+        setUser(authData.user.Username);
 
         localStorage.setItem('token', authData.token);
         localStorage.setItem('user', authData.user.Username);
-        this.getMovies(authData.token);
     }
 
-    onRegister() {
-        this.setState({register: true});
-    }
+    // why is this being called if the dependency list is empty?
+    useEffect(() => {
+        //only need to get movies once the user is logged in
+        //getMovies should only be called once onLoggedIn is called, but needs the token from onLoggedIn, which needs authData from the user state variable
+        //get movies from api and insert movies into the state variable movies
+        //get movies should only be called once the user is logged in 
+        
+        //user logs in -> user data is passed from login-view to main-view via onLoggedIn
+        async function getMovies(token) {
+            let response = await axios.get('https://greendragonflix.herokuapp.com/movies', {
+                headers: { Authorization: `Bearer ${token}`}
+            })
+            let data = await response.data;
+            setMovies(data);
+        }
 
-    registerUser(username, password, name, email) {
-        
-        
-        this.setState({user: {
-            Username: username,
-            Name: name,
-            Email: email,
-            Password: password,
-            Birthday: "",
-            FavoriteMovies: []
-        }}, () => {
+        let accessToken = localStorage.getItem('token');
+        if (accessToken != null) {
             
-            console.log('Posting user: ' + this.state.user);
-        
-            axios.post('https://greendragonflix.herokuapp.com/users', this.state.user)
-                    .then(request => console.log('Posted..' + request.data))
-                    .catch(error => console.log(error + ' ' + this.state.user))
-
-            console.log(username + ' ' + password + ' ' + name + ' ' + email + ' was posted.')
-        })
-    }
-
-    viewLogin() {
-        this.setState({register: null});
-    }
-
-    logout() {
-        useNavigate("/");
-        localStorage.removeItem('token');
-        localStorage.removeItem('user');
-        this.setState({
-            user: null
-        })
-    }
-
-    mapMovieToMovieCard() {
-        return this.state.movies.map(m => (
-            <Col md={3} key={m._id}>
-                <MovieCard movie={m} />
-            </Col>
-        ))
-    }
-
-    render() {
-        
-        const {movies, selectedMovie, user, register} = this.state;
-        let { movieId } = useParams();
-        // console.log(user);
-
-        //Case 1: No user
-        if (!user) {
+            setUser(localStorage.getItem('user'));
             
-            return  <Routes>
-                
-                        <Route exact path="/"  element={ 
-                            <RegistrationView registerUser={(username, password, name, email) => this.registerUser(username, password, name, email)} />
-                        } /> 
+            getMovies(accessToken);
+        }
+        console.log(authData)
+    }, []);
+    
+
+
+    // Functions for Registering New User
+    function _callRegisterUserEffect() {
+        setNewUser(true);
+    }
+
+    function registerUser(UserInfo) {
+        setUser({
+            Username: UserInfo.username,
+            Name: UserInfo.name,
+            Email: UserInfo.email,
+            Password: UserInfo.password,
+            Movies: UserInfo.movies
+        });
+        _callRegisterUserEffect();
+    }
+
+    useEffect(() => {
+        //need to authenticate new user and set local storage with cookies
+        async function postNewUser() {
+            console.log('Posting user: ' + user);
+            console.log(user);
+            
+            await axios.post('https://greendragonflix.herokuapp.com/users', user)
+            .then( response => {
+                console.log(response);
+                navigate("/browse");
+            })
+            .catch(error => console.log(error))
+        }
+        if (newUser) {
+            postNewUser();
+        }
+
+    }, [newUser])
+    
+
+    // Functions for MovieCard
+    function mapMovieToMovieCard() {
+        return <Row>
+            {
+                movies.map(m => (
+                    // <Row>
+                        <MovieCard movie={m} key={m._id}/>
+                    // {/* </Row> */}
+                    ))
+            }
+        </Row>
+        
+    }
+
+    // Functions for MovieView
+    function getMovieId(id) {
+        return setMovieId(id);
+    }
+
+    function findMovieForCard() {
+        const movie = movies.find(m => m._id === movieId );
+        return movie;
+    }
+    
+    
+
+    
+    //Case 1: No user
+    if (!user) {
+        
+        return <>
+                <Header />
+                    <Container>
                         
-                        
-                        <Route path="/login" element={
-                            <LoginView onLoggedIn={user => this.onLoggedIn(user)} />
-                        } />  
-                                                                        
-                    </Routes>
-            
+                        <Row>
+                            <Col>
+                                <Routes>
+                                
+                                    <Route exact path="/"  element={ 
+                                        <RegistrationView registerUser={(UserInfo) => registerUser(UserInfo)} />
+                                    } /> 
+                                    
+                                    <Route path="/login" element={
+                                        <LoginView onLoggedIn={user => onLoggedIn(user)} />
+                                    } />  
+                                                                                    
+                                </Routes>
+                            </Col>
+                        </Row>
+                    </Container>
+                 </>
         }
 
         //Case 2: No movies in database
         if (movies.length === 0) {
             
             return  <Routes>
-                        <Route path="/" element={
+                        <Route exact path="/" element={
                             <div className="main-view"></div>
                         } />
                     </Routes>
         }
 
+       
         //Case 3: User exists and movies in database -> shows movies + movie cards
         return <>
-
-                    <Button type="button" variant="primary" variant="link" onClick={() => this.logout()}>Logout</Button>       
         
-                    <Routes>
-                            <Route exact path="/browse" element={this.mapMovieToMovieCard()} />
+                    <Header logout={logout()}/>
+                    {/* <Button className="btn-primary-custom" onClick={() => logout()}>Logout</Button>        */}
+                    <Container>
+                        
 
-                            
-                            <Route path="/browse/:movieId" element={
-                                       
-                                <MovieView movie={movies.find(m => m._id === { movieId })} />
-                                     
-                            } />  
-                    </Routes>
-           </>
+                            <Routes>
+                                
+                                    <Route path="/browse" element={mapMovieToMovieCard()} />
+                                
+                                    {/* due to useParams movieId, movies.find was not working in main-view, but is working in movie-view -> because it's been switched to MovieCard and is no longer showing main-view component? */}
+                                    <Route path="/browse/:movieId" element={
+                                        //passing all movies to component and then matching the movie id from the movie card to the url parameter movieId
+                                        // <MovieView getMovieId={getMovieId()} movie={findMovieForCard()} />
+
+                                        <MovieView movies={movies} />
+                                            
+                                    }/> 
+                            </Routes>
+                        
+                    
+                       
+                    </Container>
+        </>
+                    
         
     }
 
-    componentDidMount() {
-        
-        //movies already fetched -> just not being displayed until MovieView/MovieCard is
-        axios.get('https://greendragonflix.herokuapp.com/movies')
-            .then(response => {
-                this.setState({movies: response.data});
-                console.log(response.data)
-            }).catch(error => console.log(error));
-        
-        let accessToken = localStorage.getItem('token');
-        if (accessToken != null) {
-            this.setState({
-                user: localStorage.getItem('user')
-            });
-            this.getMovies(accessToken);
-        }
-        
-    }
+    //why does useParams to get the movieId from the url parameter work when all movies are passed to MovieView, but not when the movi
 
-    
-}
+    //doesn't work because the parameter from the url doesn't exist when useParams is called in MainView -> when useParams is called in MainView, its current url is /browse --> so need to use useParams after the url changes, or inside the MovieView component
+
+    //pass the movieId parameter in MovieView back to MainView ?
+
 

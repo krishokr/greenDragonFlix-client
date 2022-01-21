@@ -1,6 +1,5 @@
-import Button from '@restart/ui/esm/Button';
 import React from 'react';
-import Button from '@restart/ui/esm/Button';
+import Button from 'react-bootstrap';
 
 export default function DirectorView(props) {
 
