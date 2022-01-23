@@ -5,7 +5,7 @@
 //
 // anything defined in a previous bundle is accessed via the
 // orig method which is the require for previous bundles
-var parcelRequire = (function (modules, cache, entry, globalName) {
+parcelRequire = (function (modules, cache, entry, globalName) {
   // Save the require from previous bundle to this closure if any
   var previousRequire = typeof parcelRequire === 'function' && parcelRequire;
   var nodeRequire = typeof require === 'function' && require;
@@ -109,7 +109,7 @@ var parcelRequire = (function (modules, cache, entry, globalName) {
   }
 
   // Override the current require with this new one
-  var parcelRequire = newRequire;
+  parcelRequire = newRequire;
 
   if (error) {
     // throw error from earlier, _after updating parcelRequire_
@@ -32835,7 +32835,9 @@ var MovieView = /*#__PURE__*/function (_React$Component) {
         className: "movie-view"
       }, /*#__PURE__*/_react.default.createElement("div", {
         className: "movie-poster"
-      }, movie.ImagePath), /*#__PURE__*/_react.default.createElement("div", {
+      }, /*#__PURE__*/_react.default.createElement("img", {
+        src: "./img/" + movie.ImagePath
+      })), /*#__PURE__*/_react.default.createElement("div", {
         className: "movie-title"
       }, /*#__PURE__*/_react.default.createElement("span", {
         className: "label"
@@ -33191,7 +33193,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50078" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55535" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
