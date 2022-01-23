@@ -5,11 +5,17 @@ import Button from 'react-bootstrap/Button';
 
 export function Header(props) {
 
+    function viewLogoutButton() {
+        console.log(props.disableLogout);
+            if (!props.disableLogout) {
+            return <Button className="btn-primary-custom" onClick={() => props.logout()}>Logout</Button>
+        }
+    }
     return <Container>
 
         <Row>
             <h1 className="logo">GREEN DRAGON</h1>
-            <Button className="btn-primary-custom" onClick={() => props.logout()}>Logout</Button>
+            {viewLogoutButton()}
         </Row>
 
         

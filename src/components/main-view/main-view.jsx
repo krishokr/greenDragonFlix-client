@@ -16,7 +16,8 @@ import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 
 
-
+// cant go to /browse unless have authData in local storage
+// need to redirect all other urls to /
 
 
 export function MainView(props) {
@@ -32,7 +33,7 @@ export function MainView(props) {
 
 // Functions for Logout
     function logout() {
-        navigate("/");
+        // navigate("/");
         localStorage.removeItem('token');
         localStorage.removeItem('user');
         setUser(null);
@@ -40,7 +41,6 @@ export function MainView(props) {
 
 
 // Functions for LoginView
-  
     function onLoggedIn(authData) {
         console.log("On Logged In")
         console.log(authData);
@@ -70,15 +70,14 @@ export function MainView(props) {
         if (accessToken != null) {
             
             setUser(localStorage.getItem('user'));
-            
             getMovies(accessToken);
         }
         console.log(authData)
-    }, []);
+    }, [authData]);
     
 
 
-    // Functions for Registering New User
+// Functions for Registering New User
     function _callRegisterUserEffect() {
         setNewUser(true);
     }
@@ -145,7 +144,7 @@ export function MainView(props) {
     if (!user) {
         
         return <>
-                <Header />
+                <Header disableLogout={true} />
                     <Container>
                         
                         <Row>
@@ -181,8 +180,8 @@ export function MainView(props) {
         //Case 3: User exists and movies in database -> shows movies + movie cards
         return <>
         
-                    <Header logout={logout()}/>
-                    {/* <Button className="btn-primary-custom" onClick={() => logout()}>Logout</Button>        */}
+                    <Header logout={logout()} disableLogout={false}/>
+                    
                     <Container>
                         
 
@@ -208,7 +207,7 @@ export function MainView(props) {
         
     }
 
-    //why does useParams to get the movieId from the url parameter work when all movies are passed to MovieView, but not when the movi
+    //why does useParams to get the movieId from the url parameter work when all movies are passed to MovieView, but not when the movie
 
     //doesn't work because the parameter from the url doesn't exist when useParams is called in MainView -> when useParams is called in MainView, its current url is /browse --> so need to use useParams after the url changes, or inside the MovieView component
 

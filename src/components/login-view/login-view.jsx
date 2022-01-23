@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import PropTypes from 'prop-types';
 import './login-view.scss'
 import Form from 'react-bootstrap/Form';
@@ -16,50 +16,69 @@ export function LoginView(props) {
     const [usernameErr, setUsernameErr] = useState('');
     const [passwordErr, setPasswordErr] = useState('');
 
-    const validate = () => {
-        let isReq = true;
+    const [submitClicked, setSubmitClicked] = useState(null);
 
+    const validUsername = () => {
         if (!username) {
             setUsernameErr('Username required.');
-            isReq = false;
+            return false;
         }
-        else if (username.length < 2) {
+        if (username.length < 2) {
             setUsernameErr('Username must be 2 characters long.');
-            isReq = false;
+            return false;
         }
-
-        if (!password) {
-            setPasswordErr('Password required.');
-            isReq = false;
-        }  else if (password < 6) {
-            setPasswordErr('Password must be 6 characters long.');
-            isReq = false;
-        }
-        return isReq
-
+        return true;
     }
 
+    const validPassword = () => {
+        if (!password) {
+            setPasswordErr('Password required.');
+            return false;
+        }  
+        if (password < 6) {
+            setPasswordErr('Password must be 6 characters long.');
+            return false;
+        }
+        return true;
+    }
 
-    const handleSubmit = (e) => {
+   const isValid = () => {
+       if (validUsername && validPassword) {
+           return true;
+       }
+       return false;
+   }
+
+
+    useEffect(() => {
+           async function postLogin() {
+                
+                //should use useEffect here...
+                    //updates the user state of MainView and make movies list appear
+                    await axios.post('https://greendragonflix.herokuapp.com/login', {
+                        Username: username,
+                        Password: password
+                    })
+                    .then(response => {
+                        const data = response.data;
+                        console.log(data);
+                        props.onLoggedIn(data);
+                        navigate("/browse");
+                    })
+                    .catch(() => console.log("User does not exist."))
+            }
+            if (isValid() && submitClicked) {
+                console.log('posting user...')
+                postLogin();
+                console.log('user has been logged in.')
+            }
+
+    },[username, password, submitClicked])
+
+    const handleSubmit = () => {
         
         console.log(username, password);
-        const isReq = validate();
-
-        if (isReq) {
-                //should use useEffect here...
-            //updates the user state of MainView and make movies list appear
-            axios.post('https://greendragonflix.herokuapp.com/login', {
-                Username: username,
-                Password: password
-            })
-            .then(response => {
-                const data = response.data;
-                console.log(data);
-                props.onLoggedIn(data);
-                navigate("/browse");
-            })
-            .catch(() => console.log("User does not exist."))
-        }
+        setSubmitClicked(true);
 
     }
     
@@ -81,9 +100,8 @@ export function LoginView(props) {
 
                 <Button className="btn-primary-custom" onClick={() => handleSubmit()}>Submit</Button>
 
-                <Link to="/">
-                    <Button className="btn-primary-custom" type="button" >Register</Button>
-                </Link>
+                
+                <Button onClick={() => navigate("/")}className="btn-primary-custom" type="button" >Register</Button>
             </Form>
             
         </>

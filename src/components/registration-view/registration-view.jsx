@@ -101,10 +101,10 @@ export function RegistrationView(props) {
                     <Form.Control type="text" onChange={e => setUserInfo({...UserInfo, name: e.target.value})} ></Form.Control>
                 </Form.Group>
                 
-                <Button variant="primary" type="submit" onClick={handleSubmit}>Register</Button>
+                <Button className="btn-primary-custom" variant="primary" type="submit" onClick={handleSubmit}>Register</Button>
 
                 <Col>Already registered?                   
-                    <Button onClick={() => navigate("/login")}>Login Here</Button>                 
+                    <Button className="btn-primary-custom" onClick={() => navigate("/login")}>Login Here</Button>                 
                 </Col>
             </Form>
             
