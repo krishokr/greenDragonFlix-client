@@ -44,20 +44,18 @@ export function MainView(props) {
     function onLoggedIn(authData) {
         console.log("On Logged In")
         console.log(authData);
-        setUser(authData.user.Username);
-
+        // //async so not changing user immediately
+        // setUser(authData.user.Username);
+        // console.log(user) //undefined or null
         localStorage.setItem('token', authData.token);
         localStorage.setItem('user', authData.user.Username);
+
+        setAuthData(true); //still async
     }
 
-    // why is this being called if the dependency list is empty?
+    //this useEffect is not being called so 
     useEffect(() => {
-        //only need to get movies once the user is logged in
-        //getMovies should only be called once onLoggedIn is called, but needs the token from onLoggedIn, which needs authData from the user state variable
-        //get movies from api and insert movies into the state variable movies
-        //get movies should only be called once the user is logged in 
-        
-        //user logs in -> user data is passed from login-view to main-view via onLoggedIn
+
         async function getMovies(token) {
             let response = await axios.get('https://greendragonflix.herokuapp.com/movies', {
                 headers: { Authorization: `Bearer ${token}`}
@@ -73,7 +71,7 @@ export function MainView(props) {
             getMovies(accessToken);
         }
         console.log(authData)
-    }, [authData]);
+    }, []);
     
 
 
@@ -176,14 +174,13 @@ export function MainView(props) {
                     </Routes>
         }
 
-       
+       //user is not existing after login...
         //Case 3: User exists and movies in database -> shows movies + movie cards
         return <>
         
                     <Header logout={logout()} disableLogout={false}/>
                     
                     <Container>
-                        
 
                             <Routes>
                                 
@@ -198,8 +195,6 @@ export function MainView(props) {
                                             
                                     }/> 
                             </Routes>
-                        
-                    
                        
                     </Container>
         </>
